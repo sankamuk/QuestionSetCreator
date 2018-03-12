@@ -131,7 +131,7 @@ print("* At any given point you cannot give value more than available in perticu
 print("\n")
 print("=======================================================================")
 final_question_set = []
-total_question = int(input("\nTotal number of question you want in the question("+ str(db.total_question) +"): "))
+total_question = int(input("\nTotal number of question you want in the question(Maximum "+ str(db.total_question) +"): "))
 if total_question > db.total_question:
     print("\nERROR: You cannot create question set more than available question. Exiting!!!\n")
     sys.exit(1)
