@@ -17,10 +17,10 @@ class Question:
             return 1
 
     def print_no_answer(self):
-        return "Question: " + self.question + "\nOptions: \n(A) " + self.answer_option_01 + "\n(B) " + self.answer_option_02 + "\n"
+        return "Question: " + str(self.question) + "\nOptions: \n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\n"
 
     def print_with_answer(self):
-        return "Question: " + self.question + "\nOptions: \n(A) " + self.answer_option_01 + "\n(B) " + self.answer_option_02 + "\nAnswer: \n" + self.answer + "\n"
+        return "Question: " + str(self.question) + "\nOptions: \n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\nAnswer: \n" + str(self.answer) + "\n"
 
 
 # Class denoting a library of questions for a specific subject
