@@ -4,10 +4,12 @@ from random import randint
 
 # Class denoting a question instance
 class Question:
-    def __init__(self, question, answer_01, answer_02, answer):
+    def __init__(self, question, answer_01, answer_02, answer_03, answer_04, answer):
         self.question = question
         self.answer_option_01 = answer_01
         self.answer_option_02 = answer_02
+        self.answer_option_03 = answer_03
+        self.answer_option_04 = answer_04
         self.answer = answer
 
     def isQuestion(self, question):
@@ -17,10 +19,10 @@ class Question:
             return 1
 
     def print_no_answer(self):
-        return "Question: " + str(self.question) + "\nOptions: \n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\n"
+        return " " + str(self.question) + "\n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\n(C) " + str(self.answer_option_03) + "\n(D) " + str(self.answer_option_04) + "\n"
 
     def print_with_answer(self):
-        return "Question: " + str(self.question) + "\nOptions: \n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\nAnswer: \n" + str(self.answer) + "\n"
+        return " " + str(self.question) + "\n(A) " + str(self.answer_option_01) + "\n(B) " + str(self.answer_option_02) + "\n(C) " + str(self.answer_option_03) + "\n(D) " + str(self.answer_option_04) + "\nAnswer: \n" + str(self.answer) + "\n"
 
 
 # Class denoting a library of questions for a specific subject
@@ -32,14 +34,14 @@ class Subject_Questions:
         self.simple_question_set = dict()
         self.difficult_question_set = dict()
 
-    def add_question(self, difficulty, question, answer01, answer02, answer):
+    def add_question(self, difficulty, question, answer01, answer02, answer03, answer04, answer):
         if difficulty == "SIMPLE" :
             self.simple_question += 1
-            questn = Question(question, answer01, answer02, answer)
+            questn = Question(question, answer01, answer02, answer03, answer04, answer)
             self.simple_question_set["question_"+str(self.simple_question)] = questn
         else:
             self.difficult_question += 1
-            questn = Question(question, answer01, answer02, answer)
+            questn = Question(question, answer01, answer02, answer03, answer04, answer)
             self.difficult_question_set["question_"+str(self.difficult_question)] = questn
 
     def get_simple_question(self, number):
@@ -75,15 +77,15 @@ class Questions_DB:
         self.total_question = 0
         self.question_set = dict()
 
-    def add_question(self, subject, difficulty, question, answer01, answer02, answer):
+    def add_question(self, subject, difficulty, question, answer01, answer02, answer03, answer04, answer):
         self.total_question += 1
         if subject in self.question_set.keys():
             subject_set = self.question_set[subject]
-            subject_set.add_question(difficulty, question, answer01, answer02, answer)
+            subject_set.add_question(difficulty, question, answer01, answer02, answer03, answer04, answer)
         else:
             self.question_set[subject] = Subject_Questions(subject)
             subject_set = self.question_set[subject]
-            subject_set.add_question(difficulty, question, answer01, answer02, answer)
+            subject_set.add_question(difficulty, question, answer01, answer02, answer03, answer04, answer)
 
     def return_subject_question(self, subject):
         return self.question_set[subject]
@@ -101,7 +103,7 @@ class Questions_DB:
     def load_DB(self, db_file, sheet_name):
         df = pd.read_excel(db_file, sheet_name)
         for i in df.index:
-            self.add_question(df['SUBJECT'][i], df['DIFFICULTY'][i], df['QUESTION'][i], df['POSSIBLE ANSWER 1'][i], df['POSSIBLE ANSWER 2'][i], df['CORRECT ANSWER'][i])
+            self.add_question(df['SUBJECT'][i], df['DIFFICULTY'][i], df['QUESTION'][i], df['POSSIBLE ANSWER 1'][i], df['POSSIBLE ANSWER 2'][i], df['POSSIBLE ANSWER 3'][i], df['POSSIBLE ANSWER 4'][i], df['CORRECT ANSWER'][i])
 
 
 # MAIN SECTION
@@ -169,12 +171,12 @@ with open("Question_Set_WithoutAnswer.txt", "w") as f1:
     count = 0
     for i in final_question_set:
         count += 1
-        f1.write("- "+ str(count) +"_"+ i.print_no_answer() +"\n")
+        f1.write("- "+ str(count) +"."+ i.print_no_answer() +"\n")
 with open("Question_Set_WithAnswer.txt", "w") as f2:
     count = 0
     for i in final_question_set:
         count += 1
-        f2.write("- "+ str(count) +"_"+ i.print_with_answer() +"\n")
+        f2.write("- "+ str(count) +"."+ i.print_with_answer() +"\n")
 print("Question set prepared. Question set with answer is in file Question_Set_WithAnswer.txt. Question set without answer is in file Question_Set_WithoutAnswer.txt.")
 print("\n")
 print("Thank you.")
