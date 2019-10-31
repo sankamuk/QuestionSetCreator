@@ -9,3 +9,16 @@ Fill the DB.xlsx which currently have sample data with your meaningfull data. Th
 Sample execution:
 
 <img src="Image.jpg" height="600">
+
+
+# Build standalone executable
+
+```
+$ pip install pandas
+$ pip install xlrd
+$ pip install pyinstaller
+$
+$ pyinstaller --onefile app.py
+```
+
+Now you will have an standalone executable(usable only on the same platform) in ***dist*** directory with name ***app***.
