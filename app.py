@@ -1,4 +1,5 @@
 import sys
+import os
 import pandas as pd
 from random import randint
 
@@ -112,6 +113,9 @@ print("=======================================================================")
 print("=                     QUESTION CREATOR TOOL                           =")
 print("=======================================================================")
 print("\n")
+print("Your current working directory[NOTE: Place your DB.xlsx in this directory]:")
+print(os.getcwd() + "\n\n")
+
 print("Loading database, please wait...")
 db = Questions_DB()
 db.load_DB('DB.xlsx', 'Feuil1')
